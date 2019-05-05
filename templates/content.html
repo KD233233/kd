@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+{% block base_block %}
+    <div class="content-wrap"><!--内容-->
+        <div class="content">
+            <header class="news_header">
+                <h2>欢迎来到{{ post.title }}</h2>
+                <ul>
+                    <li>{{ post.author }}发布于 {{ post.pub_time }}</li>
+                    <li>栏目：<a href="" title="" target="_blank">{{ post.classify }}</a></li>
+                    <li>来源：<a href="" title="" target="_blank">互联网</a></li>
+                    <li>共 <strong>{{ post.read_num }}</strong> 人围观</li>
+                </ul>
+            </header>
+            <article class="news_content">
+                <p>{{ post.content }}</p>
+                <p><img src="/static/media/{{ post.img }}" alt="" title=""/></p>
+            </article>
+            <div class="reprint">转载请说明出处：<a href="" title="" target="_blank">个人技术博客</a> » <a href="" title=""
+                                                                                             target="_blank">{{ post.title }}</a>
+            </div>
+            <div class="zambia"><a href="javascript:;" name="zambia" rel="{{ post.id }}"><span
+                    class="glyphicon glyphicon-thumbs-up"></span>{{ post.zan }}</a></div>
+
+            <div class="tags news_tags">标签：
+                {% for tag in tags.all %}
+                <span data-toggle="tooltip" data-placement="bottom" title="查看文章标签">
+            <a href="{% url 'tags' %}">{{ tag }}</a></span>
+            {% endfor %}
+            </div>
+
+            <nav class="page-nav">{% if previous_post %}<span class="page-nav-prev">上一篇<br/>
+            <a href="{% url 'content' previous_post.pk %}" rel="prev">{{ previous_post.title }}</a></span>
+            {% else %}
+                <span>暂无最新文章</span>
+            {% endif %}
+
+                {% if next_post %}<span class="page-nav-prev">下一篇<br/>
+            <a href="{% url 'content' next_post.pk %}" rel="prev">{{ next_post.title }}</a></span>
+                {% else %}
+                    <span>到最后咯~</span>
+                {% endif %}</nav>
+
+
+            <div class="content-block related-content visible-lg visible-md">
+                <h2 class="title"><strong>相关推荐</strong></h2>
+                <ul>
+                    {% for post in post_list %}
+                        <li><a target="_blank" href="{% url 'content' post.pk %}"><img
+                                src="/static/media/{{ post.img }}" alt="">
+                            <h3> {{ post.title }} </h3>
+                        </a></li>
+                    {% endfor %}
+                </ul>
+
+
+            </div>
+            <div class="content-block comment">
+                <form action="{% url 'post_comment' post.pk %}" method="post" class="comment-form"
+                      style="margin-top: 15px;">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="{{ form.name.id_for_label }}">昵称</label>
+                            {{ form.name }}
+                            {{ form.name.errors }}
+                        </div>
+                        <div class="col-md-4">
+                            <label for="{{ form.email.id_for_label }}">邮箱</label>
+                            {{ form.email }}
+                            {{ form.email.errors }}
+                        </div>
+                        <div class="col-md-12 ooxx">
+                            <label for="{{ form.content.id_for_label }}"></label>
+                            {{ form.content }}
+                            {{ form.content.errors }}
+                            <div class="comment-form-footer">
+                                <div class="comment-form-text">请先 <a href="javascript:;">登录</a> 或 <a
+                                        href="javascript:;">注册</a>，也可匿名评论
+                                </div>
+                                <div class="comment-form-btn">
+                                    <button type="submit" class="btn btn-default btn-comment">提交评论</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+
+                <h2 class="title"><strong>评论</strong></h2>
+                {#                <form action="{% url 'post_comment' post.pk %}" method="post" class="form-inline" id="comment-form">#}
+                {#                    {% csrf_token %}#}
+                {##}
+                {#                    <div class="comment-title">#}
+                {#                        <div class="form-group">#}
+                {#                            <label for="commentName">昵称</label>#}
+                {#                            {{ form.name }}#}
+                {#                            {{ form.name.errors }}#}
+                {#                                             <input type="text" name="commentName" class="form-control" id="commentName" placeholder="技术博客">#}
+                {#                        </div>#}
+                {#                        <div class="form-group">#}
+                {#                            <label for="commentEmail">邮箱</label>#}
+                {#                            {{ form.email }}#}
+                {#                            {{ form.email.errors }}#}
+                {#                                            <input type="email" name="commentEmail" class="form-control" id="commentEmail" placeholder="admin@xxxx.com">#}
+                {#                        </div>#}
+                {#                    </div>#}
+                {#                    <div class="comment-form">#}
+                {#                        <textarea class="form-control" rows="3"></textarea>#}
+                {#                        {{ form.content }}#}
+                {#                        {{ form.content.errors }}#}
+                {#                                        <textarea placeholder="你的评论可以一针见血" name="commentContent"></textarea>#}
+                {#                        <div class="comment-form-footer">#}
+                {#                            <div class="comment-form-text">请先 <a href="javascript:;">登录</a> 或 <a#}
+                {#                                    href="javascript:;">注册</a>，也可匿名评论#}
+                {#                            </div>#}
+                {#                            <div> class="comment-form-btn">#}
+                {#                                <button type="submit" class="btn btn-default btn-comment">提交评论</button>#}
+                {#                            </div>#}
+                {#                        </div>#}
+                {#                    </div>#}
+                {#                </form>#}
+                <div class="comment-content">
+                    <div class="panel panel-default">
+                        {% for comment in comment_list %}
+                            <p class="panel-heading"><b><img style="width:40px;height:40px"
+                                                             src="/static/images/icon/logo22.jpg"
+                                                             alt="">{{ comment.name }}
+                                {{ comment.time }}</b>
+                            <p class="panel-body">{{ comment.content }}</p></p>
+                            <br>
+                        {% empty %}
+                            暂无评论
+                        {% endfor %}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/内容-->
+{% endblock %}

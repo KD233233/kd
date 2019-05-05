@@ -1,0 +1,33 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>欢迎来到个人技术博客 - 个人技术博客</title>
+    <link rel="stylesheet" href="{% static 'bootstrap-3.3.7/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'highlights/manni.css' %}">
+    <link href="{% static 'bootstrap-3.3.7/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'bootstrap-3.3.7/css/nprogress.css' %}" rel="stylesheet">
+    <script src="{% static 'bootstrap-3.3.7/js/html5shiv.min.js' %}"></script>
+    <script src="{% static 'bootstrap-3.3.7/js/respond.min.js' %}"></script>
+    <script src="{% static 'bootstrap-3.3.7/js/selectivizr-min.js' %}"></script>
+    <link rel="apple-touch-icon-precomposed" href="images/icon/icon.png">
+    <link rel="shortcut icon" href="images/icon/favicon.ico">
+    <meta name="Keywords" content=""/>
+    <meta name="description" content=""/>
+    <script type="text/javascript">
+        //判断浏览器是否支持HTML5
+        window.onload = function () {
+            if (!window.applicationCache) {
+                window.location.href = "ie.html";
+            }
+        }
+    </script>
+</head>
+<body>
+        <h2>{{ sentences.time|date:'Y-m-d' }}</h2>
+        <p>{{ sentences.content }}</p>
+</body>
+</html>

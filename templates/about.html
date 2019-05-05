@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% block base_block %}{% load staticfiles %}
+
+    <div class="content-wrap"><!--内容-->
+        <div class="content">
+            {% for i in about_list %}
+                <div class="content-block about-content">
+                    <h2 class="title"><strong>关于技术博客</strong></h2>
+                    <p class="line-title">想要深入了解<span>技术博客？</span></p>
+                    <p>{{ i.content }}</p>
+                    <p>大家如果有好的文章好的技术请不要吝啬，欢迎前来投稿！</p>
+                    <p>如果有什么疑问或者需要投稿的请使用下方联系方式，或者留言来告诉我，收到后第一时间回复。</p>
+                </div>
+                <div class="content-block contact-content">
+                <h2 class="title"><strong>联系技术博客</strong></h2>
+                <p><span>站长QQ：</span><a href="tencent://message/?uin=0000000000\">{{ i.qq }}</a></p>
+                <p><span>交流群：</span><a href="">{{ i.group }}</a></p>
+                <p><span>站长邮箱：</span><a href="">{{ i.email }}</a></p>
+            {% endfor %}
+            </div>
+            <div class="content-block comment">
+
+                <h2 class="title"><strong>添加留言</strong></h2>
+                <form action="{% url 'about_message' %}" method="post" class="comment-form"
+                      style="margin-top: 15px;">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="{{ form.name.id_for_label }}">姓名：</label>
+                            {{ form.name }}
+                            {{ form.name.errors }}
+                        </div>
+                        <div class="col-md-4">
+                            <label for="{{ form.email.id_for_label }}">邮箱</label>
+                            {{ form.email }}
+                            {{ form.email.errors }}
+                        </div>
+                        <div class="col-md-12">
+                            <label for="{{ form.content.id_for_label }}"></label>
+                            {{ form.content }}
+                            {{ form.content.errors }}
+                            <div class="comment-form-footer">
+                                <div class="comment-form-text">请先 <a href="javascript:;">登录</a> 或 <a
+                                        href="javascript:;">注册</a>，也可匿名留言
+                                </div>
+                                <div class="comment-form-btn">
+                                    <button type="submit" class="btn btn-default btn-comment">提交留言</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="content-block comment-content">
+                    <h2 class="title"><strong>最新留言</strong></h2>
+                <div class="comment-content">
+                    <div class="panel panel-default">
+                        {% for comment in message_list %}
+                            <p class="panel-heading"><b><img style="width:40px;height:40px"
+                                                             src="/static/images/icon/logo22.jpg"
+                                                             alt="">{{ comment.name }}
+                                {{ comment.time }}</b>
+                            <p class="panel-body">{{ comment.content }}</p></p>
+                            <br>
+                        {% empty %}
+                            暂无留言
+                        {% endfor %}
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/内容-->
+{% endblock %}
+
+

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block base_block %}
+    <div class="content-wrap"><!--内容-->
+        <div class="content">
+            <div class="row tags-content content-block">
+                <h2 class="title"><strong>本站标签</strong></h2>
+                {% for tag in tags.all %}
+                    {% for post in tag.post_set.all %}
+                <div class="col-xs-3"><span class="tags" data-toggle="tooltip" data-placement="bottom"
+                                            title="查看关于 {{ post.title }} 的文章"><a href="{% url 'content' post.id %}">{{ tag }}</a></span>
+                    <p>查看关于 {{ post.title }} 的文章</p></div>
+                {% endfor %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <!--/内容-->
+{% endblock %}

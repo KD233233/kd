@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% block base_block %}{% load staticfiles %}
+
+    <div class="content-wrap"><!--内容-->
+        <div class="content">
+            <div class="content-block friendly-content row">
+                <h2 class="title"><strong>本站友链</strong></h2>
+                {% for i in link %}
+                    <div class="col-md-4 col-xs-6">
+                    <span data-toggle="tooltip" data-placement="bottom" title="点击进入{{ i.website }}站点"><a
+                            href="{{ i.url }}">{{ i.website }}</a></span>
+                    <p>{{ i.content }}</p>
+                          </div>
+                {% endfor %}
+
+            </div>
+            <div class="content-block comment">
+                <h2 class="title"><strong>提交友链</strong></h2>
+
+                <form action="{% url 'friendly_link' %}" method="post" class="comment-form"
+                      style="margin-top: 15px;">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="{{ form.website.id_for_label }}">网站名称：</label>
+                            {{ form.website }}
+                            {{ form.website.errors }}
+                        </div>
+                        <div class="col-md-4">
+                            <label for="{{ form.url.id_for_label }}">网站地址</label>
+                            {{ form.url }}
+                            {{ form.url.errors }}
+                        </div>
+                        <div class="col-md-12">
+                            <label for="{{ form.content.id_for_label }}"></label>
+                            {{ form.content }}
+                            {{ form.content.errors }}
+                            <div class="comment-form-footer">
+                                <div class="comment-form-text">请先 <a href="javascript:;">登录</a> 或 <a
+                                        href="javascript:;">注册</a>，也可匿名提交友链
+                                </div>
+                                <div class="comment-form-btn">
+                                    <button type="submit" class="btn btn-default btn-comment">提交友链</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+
+                {#      <form action="{% url 'friendly_link' %}" method="post" class="form-inline" id="comment-form">#}
+                {#        <div class="comment-title">#}
+                {#          <div class="form-group">#}
+                {#            <label for="messageName">网站名称：</label>#}
+                {#            <input type="text" name="messageName" class="form-control" id="messageName" placeholder="个人技术博客">#}
+                {#          </div>#}
+                {#          <div class="form-group">#}
+                {#            <label for="messageEmail">网站地址：</label>#}
+                {#            <input type="email" name="messageEmail" class="form-control" id="messageEmail" placeholder="admin@xxxx.com">#}
+                {#          </div>#}
+                {#        </div>#}
+                {#        <div class="comment-form">#}
+                {#          <textarea placeholder="请填写网站服务内容" name="messageContent"></textarea>#}
+                {#          <div class="comment-form-footer">#}
+                {#            <div class="comment-form-text">请先 <a href="javascript:;">登录</a> 或 <a href="javascript:;">注册</a>，也可匿名提交友链 </div>#}
+                {#            <div class="comment-form-btn">#}
+                {#              <button type="submit" class="btn btn-default btn-comment">提交友链</button>#}
+                {#            </div>#}
+                {#          </div>#}
+                {#        </div>#}
+                {#      </form>#}
+            </div>
+        </div>
+    </div>
+    <!--/内容-->
+{% endblock %}
+
+

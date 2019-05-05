@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block base_block %}
+    <div class="content-wrap"><!--内容-->
+        <div class="content">
+{#           <div class="comment-content">#}
+{#                    <ul>#}
+{#                    <h2><i>读者留言墙:</i></h2>#}
+{#                        {% for comment in message_list %}#}
+{#                            <li><span class="face"><img style="width:100px;height:100px" src="/static/images/icon/logo22.jpg" alt=""></span><span class="text"><strong>{{ comment.name }}</strong>({{ comment.time }}) 留言:#}
+{#                                {{ comment.content }}</span></li>#}
+{#                        {% endfor %}#}
+{#                    </ul>#}
+{#                </div>#}
+
+                          <div class="comment_list_panel">
+                    <h3>读者留言墙:</h3>
+                          <h4><i>一共有({{ message_list.count }})留言</i></h4>
+
+                    <div class="panel panel-default">
+                         {% for comment in message_list %}
+                            <p  class="panel-heading"><b><img style="width:40px;height:40px" src="/static/images/icon/logo22.jpg" alt="">{{ comment.name }}
+                                {{ comment.time }}</b>
+                            <p class="panel-body">{{ comment.content }}</p></p>
+                            <br>
+                        {% empty %}
+                            暂无留言
+                        {% endfor %}
+                    </div>
+                </div>
+
+        </div>
+    </div>
+    <!--/内容-->
+{% endblock %}
